@@ -12,13 +12,11 @@ const makeTestProduct = (id: number, category: Category): Product => {
     };
 };
 
-const makeTestProducts = (): Product[] => {
-    return [
-        makeTestProduct(0, 'Электроника'),
-        makeTestProduct(1, 'Для дома'),
-        makeTestProduct(2, 'Одежда'),
-    ];
-};
+const makeTestProducts = (): Product[] => [
+    makeTestProduct(0, 'Электроника'),
+    makeTestProduct(1, 'Для дома'),
+    makeTestProduct(2, 'Одежда'),
+];
 
 describe('applyCategories', () => {
     it('handles empty categories', () => {
