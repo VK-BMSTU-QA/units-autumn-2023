@@ -12,24 +12,31 @@ const makeTestProduct = (id: number, category: Category): Product => {
     };
 };
 
-const testProducts: Product[] = [
-    makeTestProduct(0, 'Электроника'),
-    makeTestProduct(1, 'Для дома'),
-    makeTestProduct(2, 'Одежда'),
-];
+const makeTestProducts = (): Product[] => {
+    return [
+        makeTestProduct(0, 'Электроника'),
+        makeTestProduct(1, 'Для дома'),
+        makeTestProduct(2, 'Одежда'),
+    ];
+};
 
 describe('applyCategories', () => {
-    it('processes empty categories', () => {
-        expect(applyCategories(testProducts, [])).toBe(testProducts);
+    it('handles empty categories', () => {
+        expect(applyCategories(makeTestProducts(), [])).toStrictEqual(
+            makeTestProducts()
+        );
     });
 
     it('filters products by category', () => {
-        const res = applyCategories(testProducts, ['Электроника', 'Одежда']);
-        expect(res.length).toStrictEqual(2);
+        const res = applyCategories(makeTestProducts(), [
+            'Электроника',
+            'Одежда',
+        ]);
+        expect(res).toHaveLength(2);
 
-        expect(res).toContain(testProducts[0]);
-        expect(res).toContain(testProducts[2]);
+        const testProducts = makeTestProducts();
 
-        expect(res).not.toContain(testProducts[1]);
+        expect(res[0]).toStrictEqual(testProducts[0]);
+        expect(res[1]).toStrictEqual(testProducts[2]);
     });
 });
