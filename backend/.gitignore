@@ -1,0 +1,3 @@
+venv/
+src/.coverage
+src/__pycache__
