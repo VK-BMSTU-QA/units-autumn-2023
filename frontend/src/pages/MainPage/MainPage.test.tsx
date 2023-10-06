@@ -65,7 +65,7 @@ describe('test MainPage', () => {
     });
     it('should call update category', () => {
         const rendered = render(
-            <MainPage />
+            <MainPage/>
         );
 
         expect(updateCategories).toHaveBeenCalledTimes(0);

@@ -1,5 +1,5 @@
-import { applyCategories } from '../applyCategories';
-import type { Category, Product } from '../../types';
+import {applyCategories} from '../applyCategories';
+import type {Category, Product} from '../../types';
 
 const table: Array<[Product[], Category[], Product[]]> = [
     [

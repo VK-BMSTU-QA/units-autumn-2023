@@ -1,5 +1,5 @@
-import type { Category } from '../../types';
-import { updateCategories } from '../updateCategories';
+import type {Category} from '../../types';
+import {updateCategories} from '../updateCategories';
 
 
 const table: Array<[Category[], Category, Category[]]> = [

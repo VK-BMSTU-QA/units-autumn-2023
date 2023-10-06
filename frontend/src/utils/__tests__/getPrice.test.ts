@@ -1,4 +1,4 @@
-import { getPrice } from '../getPrice';
+import {getPrice} from '../getPrice';
 
 describe('test get price function', () => {
     it('should return value with price symbol', () => {
