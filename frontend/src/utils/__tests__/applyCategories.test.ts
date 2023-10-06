@@ -1,6 +1,7 @@
 import { Product } from '../../types';
 import { applyCategories } from '../applyCategories';
 
+// TODO: beforeEach
 describe('test apply categories function', () => {
     it('return all products', () => {
         let products: Product[] = [
