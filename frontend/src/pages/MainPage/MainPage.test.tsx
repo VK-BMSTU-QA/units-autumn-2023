@@ -39,7 +39,7 @@ jest.mock('../../utils', () => {
             price: 20,
         },
     ];
-	
+
     return {
         ...original,
         applyCategories: jest.fn().mockReturnValue(products),
@@ -47,16 +47,16 @@ jest.mock('../../utils', () => {
 });
 
 describe('Main page test', () => {
-    jest.spyOn(Date.prototype, 'toLocaleTimeString').mockReturnValueOnce(
-        '14:00:00'
-    );
-
     it('should render correctly', () => {
+        jest.spyOn(Date.prototype, 'toLocaleTimeString').mockReturnValueOnce(
+            '14:00:00'
+        );
+
         const rendered = render(<MainPage />);
         expect(rendered.asFragment()).toMatchSnapshot();
     });
 
-    it('should update catalog when category click', () => {
+    it('should call applyCategories callback when category click', () => {
         const rendered = render(<MainPage />);
 
         expect(applyCategories).toHaveBeenCalledTimes(1);
