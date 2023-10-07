@@ -2,6 +2,7 @@ import unittest
 from src.calculator import Calculator
 import math
 
+
 class TestCalculator(unittest.TestCase):
 
     def setUp(self):
@@ -9,7 +10,7 @@ class TestCalculator(unittest.TestCase):
 
     def test_add(self):
         self.assertAlmostEqual(self.calculator.addition(1.2, 2), 3.2)
-        
+
     def test_add_zero(self):
         self.assertAlmostEqual(self.calculator.addition(2.3, 0), 2.3)
 
@@ -18,7 +19,7 @@ class TestCalculator(unittest.TestCase):
 
     def test_sub(self):
         self.assertAlmostEqual(self.calculator.subtraction(5.1, 1), 4.1)
-        
+
     def test_sub_zero(self):
         self.assertAlmostEqual(self.calculator.subtraction(3, 0), 3)
 
@@ -27,7 +28,7 @@ class TestCalculator(unittest.TestCase):
 
     def test_mult(self):
         self.assertAlmostEqual(self.calculator.multiplication(5.1, 2), 10.2)
-        
+
     def test_mult_zero(self):
         self.assertAlmostEqual(self.calculator.multiplication(3, 0), 0)
 
@@ -40,8 +41,14 @@ class TestCalculator(unittest.TestCase):
     def test_div(self):
         self.assertAlmostEqual(self.calculator.division(6, 4), 1.5)
 
-    def test_div_zero(self):
-        self.assertAlmostEqual(self.calculator.division(3, 0), None)
+    def test_div_zero_divident(self):
+        self.assertAlmostEqual(self.calculator.division(0, 5.1), 0)
+
+    def test_div_zero_divisor(self):
+        self.assertEqual(self.calculator.division(3, 0), None)
+
+    def test_div_zero_by_zero(self):
+        self.assertEqual(self.calculator.division(0, 0), None)
 
     def test_div_negative(self):
         self.assertAlmostEqual(self.calculator.division(5, -2), -2.5)
@@ -59,7 +66,7 @@ class TestCalculator(unittest.TestCase):
         self.assertAlmostEqual(self.calculator.adsolute(0), 0)
 
     def test_degree_positive(self):
-        self.assertAlmostEqual(self.calculator.degree(2, 3),8)
+        self.assertAlmostEqual(self.calculator.degree(2, 3), 8)
 
     def test_degree_negative(self):
         self.assertAlmostEqual(self.calculator.degree(2, -3), 0.125)
@@ -91,6 +98,9 @@ class TestCalculator(unittest.TestCase):
     def test_sqrt_negative(self):
         self.assertAlmostEqual(self.calculator.sqrt(-4), 2j)
 
+    def test_sqrt_zero(self):
+        self.assertAlmostEqual(self.calculator.sqrt(0), 0)
+
     def test_nth_root(self):
         self.assertAlmostEqual(self.calculator.nth_root(16, 4), 2)
 
@@ -102,6 +112,7 @@ class TestCalculator(unittest.TestCase):
 
     def test_nth_root_float(self):
         self.assertAlmostEqual(self.calculator.nth_root(3, 0.5), 9)
+
 
 if __name__ == "__main__":
     unittest.main()

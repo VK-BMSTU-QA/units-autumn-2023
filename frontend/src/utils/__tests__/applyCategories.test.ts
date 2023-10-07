@@ -2,39 +2,47 @@ import { applyCategories } from '../applyCategories';
 import { Product } from '../../types/Product';
 import { Category } from '../../types/Category';
 
-const makeTestProduct = (id: number, category: Category): Product => {
+const makeTestProduct = (
+    id: number,
+    category: Category,
+    name = '',
+    description = '',
+    price = 0
+): Product => {
     return {
         id: id,
         category: category,
-        name: '',
-        description: '',
-        price: 0,
+        name: name,
+        description: description,
+        price: price,
     };
 };
 
-const makeTestProducts = (): Product[] => [
-    makeTestProduct(0, 'Электроника'),
-    makeTestProduct(1, 'Для дома'),
-    makeTestProduct(2, 'Одежда'),
-];
-
 describe('applyCategories', () => {
     it('handles empty categories', () => {
-        expect(applyCategories(makeTestProducts(), [])).toStrictEqual(
-            makeTestProducts()
-        );
+        const products = [
+            makeTestProduct(0, 'Электроника'),
+            makeTestProduct(1, 'Для дома'),
+            makeTestProduct(2, 'Одежда'),
+        ];
+
+        expect(applyCategories(products, [])).toStrictEqual(products);
     });
 
     it('filters products by category', () => {
-        const res = applyCategories(makeTestProducts(), [
-            'Электроника',
-            'Одежда',
-        ]);
-        expect(res).toHaveLength(2);
+        const products = [
+            makeTestProduct(0, 'Электроника'),
+            makeTestProduct(1, 'Для дома'),
+            makeTestProduct(2, 'Одежда'),
+        ];
 
-        const testProducts = makeTestProducts();
+        const res = applyCategories(products, ['Электроника', 'Одежда']);
 
-        expect(res[0]).toStrictEqual(testProducts[0]);
-        expect(res[1]).toStrictEqual(testProducts[2]);
+        const expectedProducts = [
+            makeTestProduct(0, 'Электроника'),
+            makeTestProduct(2, 'Одежда'),
+        ];
+
+        expect(res).toStrictEqual(expectedProducts);
     });
 });

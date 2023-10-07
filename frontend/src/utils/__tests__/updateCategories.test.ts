@@ -1,23 +1,23 @@
 import { Category } from '../../types';
 import { updateCategories } from '../updateCategories';
 
-const getTestCategories = (): Category[] => ['Одежда', 'Для дома'];
-
 describe('updateCategories', () => {
     it('removes existing category from current', () => {
-        const res = updateCategories(getTestCategories(), 'Одежда');
+        const categories: Category[] = ['Одежда', 'Для дома'];
+
+        const res = updateCategories(categories, 'Одежда');
 
         expect(res).toHaveLength(1);
         expect(res).toContain('Для дома');
     });
 
     it('adds a category to current', () => {
-        const res = updateCategories(getTestCategories(), 'Электроника');
+        const categories: Category[] = ['Одежда', 'Для дома'];
 
-        expect(res).toHaveLength(3);
+        const res = updateCategories(categories, 'Электроника');
 
-        expect(res[0]).toStrictEqual('Одежда');
-        expect(res[1]).toStrictEqual('Для дома');
-        expect(res[2]).toStrictEqual('Электроника');
+        const expectedCategories = ['Одежда', 'Для дома', 'Электроника'];
+
+        expect(res).toStrictEqual(expectedCategories);
     });
 });
