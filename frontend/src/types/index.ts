@@ -1,4 +1,4 @@
 export * from './Symbol';
 export * from './Product';
 export * from './Category';
-export * from './SortBy';
+// export * from './SortBy'; ? cant find it
