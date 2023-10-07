@@ -6,7 +6,7 @@ import { MainPage } from './MainPage';
 afterEach(jest.clearAllMocks);
 describe('Main page test', () => {
     it('should render correctly', () => {
-        const rendered = render(<MainPage selectedCategories={[]} />);
+        const rendered = render(<MainPage />);
 
         expect(rendered.asFragment()).toMatchSnapshot();
     });
