@@ -2,6 +2,7 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { MainPage } from './MainPage';
+import * as applyCategoriesFunc from '../../utils/applyCategories';
 
 afterEach(jest.clearAllMocks);
 describe('Main page test', () => {
@@ -15,11 +16,19 @@ describe('Main page test', () => {
     });
 
     it('should call callback when category click', () => {
-        const onCategoryClick = jest.fn();
+        const mockApplyCategories = jest.spyOn(
+            applyCategoriesFunc,
+            'applyCategories'
+        );
         const rendered = render(<MainPage />);
 
-        expect(onCategoryClick).toHaveBeenCalledTimes(0);
-        fireEvent.click(rendered.getByText('Одежда'));
-        expect(onCategoryClick).toHaveBeenCalledTimes(1);
+        expect(mockApplyCategories).toHaveBeenCalledTimes(1);
+        fireEvent.click(
+            rendered
+                .getAllByText('Для дома')
+                .find((btn) => btn.className.includes('categories__badge')) ||
+                rendered.getByText('Для дома')
+        );
+        expect(mockApplyCategories).toHaveBeenCalledTimes(2);
     });
 });
