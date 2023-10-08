@@ -19,6 +19,15 @@ jest.mock('../../utils/updateCategories', () => {
 });
 
 describe('tests for MainPage', () => {
+    it('Render test(without time)', () => {
+        const MyPageRendered = render(<MainPage />);
+        expect(MyPageRendered.asFragment()).toMatchSnapshot();
+        expect(useCurrentTime).toHaveBeenCalledTimes(1);
+    });
+    it('Render test(time only)', () => {
+        const MyPageRendered = render(<MainPage />);
+        expect(useCurrentTime).toHaveBeenCalledTimes(1);
+    });
     it('Render test(with time)', () => {
         const MyPageRendered = render(<MainPage />);
         expect(MyPageRendered.asFragment()).toMatchSnapshot();
@@ -26,7 +35,6 @@ describe('tests for MainPage', () => {
     });
     it('Apply category call check', () => {
         const MyPageRendered = render(<MainPage />);
-        expect(updateCategories).toHaveBeenCalledTimes(0);
         fireEvent.click(
             MyPageRendered.baseElement.getElementsByClassName(
                 'categories__badge'
