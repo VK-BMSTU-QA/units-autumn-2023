@@ -94,6 +94,7 @@ class TestCalculator(unittest.TestCase):
         self.assertRaises(ValueError, self.calculator.log, -13, 3)
         self.assertRaises(ValueError, self.calculator.log, 0, 3)
         self.assertRaises(ValueError, self.calculator.log, 3, 0)
+        self.assertRaises(ValueError, self.calculator.log, 3, -13)
         self.assertRaises(TypeError, self.calculator.log, 'face', 3)
         self.assertRaises(TypeError, self.calculator.log, None, 3)
 
@@ -110,6 +111,7 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(self.calculator.nth_root(1024, 10), 2)
         self.assertEqual(self.calculator.nth_root(0, 10), 0)
         self.assertEqual(self.calculator.nth_root(-5, 2), (1.3691967456605067e-16 + 2.23606797749979j))
+        self.assertRaises(ZeroDivisionError, self.calculator.nth_root, 3, 0)
         self.assertRaises(TypeError, self.calculator.nth_root, 'face', 2)
         self.assertRaises(TypeError, self.calculator.nth_root, None, 2)
 
