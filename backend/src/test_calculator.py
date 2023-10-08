@@ -239,6 +239,9 @@ class TestCalculator(unittest.TestCase):
     def test_log_None_base(self):
         self.assertRaises(TypeError, self.calculator.log, 16, None)
 
+    def test_log_zero_param(self):
+        self.assertRaises(ValueError, self.calculator.log, 4, 0)
+
     def test_sqrt(self):
         self.assertAlmostEqual(self.calculator.sqrt(16), 4.0)
 
@@ -259,6 +262,9 @@ class TestCalculator(unittest.TestCase):
 
     def test_sqrt_nan(self):
         self.assertTrue(math.isnan(self.calculator.sqrt(math.nan)))
+
+    def test_sqrt_zero(self):
+        self.assertEqual(self.calculator.sqrt(0), 0)
 
     def test_nth_root(self):
         self.assertEqual(self.calculator.nth_root(8, 3), 2)
