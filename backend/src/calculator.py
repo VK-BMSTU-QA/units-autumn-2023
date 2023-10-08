@@ -8,6 +8,7 @@ class Calculator:
 
     def addition(self, x1, x2):
         return x1 + x2
+    
 
     def multiplication(self, x1, x2):
         return x1 * x2
