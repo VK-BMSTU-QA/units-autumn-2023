@@ -55,9 +55,13 @@ class TestCalculator(unittest.TestCase):
 	
     def test_div_float_result(self):
         self.assertEqual(self.calculator.division(3, 6), 0.5)
+
+    def test_div_one_by_one_neg(self):
+        self.assertEqual(self.calculator.division(-1, -1), 1)
 	
     def test_div_by_zero(self):
         self.assertIsNone(self.calculator.division(6, 0))
+ 
 
     def test_div_zero_res(self):
         self.assertEqual(self.calculator.division(0, 10), 0)
