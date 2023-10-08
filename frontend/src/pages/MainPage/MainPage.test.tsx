@@ -3,12 +3,10 @@ import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { MainPage } from './MainPage';
 
-import { applyCategories } from '../../utils';
-
 afterEach(jest.clearAllMocks);
 
-jest.mock('../../utils', () => {
-    const original = jest.requireActual('../../utils');
+jest.mock('../../hooks/', () => {
+    const original = jest.requireActual('../../hooks');
     const products = [
         {
             id: 1,
@@ -39,30 +37,32 @@ jest.mock('../../utils', () => {
             price: 20,
         },
     ];
-
     return {
         ...original,
-        applyCategories: jest.fn().mockReturnValue(products),
+        useCurrentTime: jest.fn().mockReturnValue('14:00:00'),
+        useProducts: jest.fn().mockReturnValue(products),
     };
 });
 
 describe('Main page test', () => {
     it('should render correctly', () => {
-        jest.spyOn(Date.prototype, 'toLocaleTimeString').mockReturnValueOnce(
-            '14:00:00'
-        );
-
         const rendered = render(<MainPage />);
         expect(rendered.asFragment()).toMatchSnapshot();
     });
 
-    it('should call applyCategories callback when category click', () => {
+    it('should update products when category click', () => {
         const rendered = render(<MainPage />);
 
-        expect(applyCategories).toHaveBeenCalledTimes(1);
+        expect(
+            rendered.container.querySelectorAll('.product-card').length
+        ).toBe(4);
+
         fireEvent.click(
-            rendered.container.getElementsByClassName('categories__badge')[0]
+            rendered.container.querySelectorAll('.categories__badge')[0]
         );
-        expect(applyCategories).toHaveBeenCalledTimes(2);
+
+        expect(
+            rendered.container.querySelectorAll('.product-card').length
+        ).toBe(2);
     });
 });
