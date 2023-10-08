@@ -1,4 +1,6 @@
+import math
 import unittest
+
 from src.calculator import Calculator
 
 
@@ -112,10 +114,16 @@ class TestCalculator(unittest.TestCase):
         self.assertAlmostEqual(self.calculator.degree(4, 0.5), 2)
         self.assertAlmostEqual(self.calculator.degree(3, 0.7), 2.157669279974)
 
-    def test_degree_neg(self):
+    def test_degree_neg_value(self):
         self.assertEqual(self.calculator.degree(-1, 2), 1)
         self.assertEqual(self.calculator.degree(-2, 2), 4)
         self.assertEqual(self.calculator.degree(-2, 3), -8)
+
+    def test_degree_neg_degree(self):
+        self.assertAlmostEqual(self.calculator.degree(2, -2), 0.25)
+        self.assertAlmostEqual(self.calculator.degree(2, -3), 0.125)
+        self.assertAlmostEqual(self.calculator.degree(4, -0.5), 0.5)
+        self.assertAlmostEqual(self.calculator.degree(3, -0.7), 0.46346305677)
 
     def test_ln_zero(self):
         self.assertEqual(self.calculator.ln(1), 0)
@@ -123,7 +131,7 @@ class TestCalculator(unittest.TestCase):
     def test_ln_pos(self):
         self.assertAlmostEqual(self.calculator.ln(2), 0.6931471805599453)
         self.assertAlmostEqual(self.calculator.ln(3), 1.0986122886681098)
-        self.assertAlmostEqual(self.calculator.ln(2.71828182846), 1)
+        self.assertAlmostEqual(self.calculator.ln(math.e), 1)
 
     def test_ln_neg(self):
         self.assertRaises(ValueError, self.calculator.ln, 0)
@@ -146,6 +154,10 @@ class TestCalculator(unittest.TestCase):
     def test_log_neg_base(self):
         self.assertRaises(ValueError, self.calculator.log, 2, 0)
         self.assertRaises(ValueError, self.calculator.log, 2, -1)
+
+    def test_log_base_one(self):
+        self.assertRaises(ZeroDivisionError, self.calculator.log, 2, 1)
+        self.assertRaises(ZeroDivisionError, self.calculator.log, 2.45, 1)
 
     def test_sqrt_zero(self):
         self.assertEqual(self.calculator.sqrt(0), 0)
