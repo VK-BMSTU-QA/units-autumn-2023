@@ -8,7 +8,6 @@ interface TestCase {
     expected: Category[];
 }
 
-// todo name tests
 describe('test update category', () => {
     const testCases: TestCase[] = [
         {
@@ -38,7 +37,7 @@ describe('test update category', () => {
     ];
 
     test.each(testCases)(
-        'Update category %s',
+        'Update: $nameOfTest',
         ({ nameOfTest, currentCat, changedCat, expected }) => {
             expect(updateCategories(currentCat, changedCat)).toStrictEqual(
                 expected

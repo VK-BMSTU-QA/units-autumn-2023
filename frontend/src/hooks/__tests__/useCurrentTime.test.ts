@@ -10,10 +10,6 @@ describe('test use current time', () => {
         jest.setSystemTime(new Date('2017-01-01'));
     });
 
-    afterEach(() => {
-        cleanup;
-    });
-
     afterAll(() => {
         jest.useRealTimers();
     });

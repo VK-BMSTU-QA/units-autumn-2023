@@ -68,7 +68,7 @@ describe('test apply categories function', () => {
     ];
 
     test.each(testCases)(
-        'Apply category $s',
+        'Apply: $nameOfTest',
         ({ nameOfTest, pr, cat, expected }) => {
             expect(applyCategories(pr, cat)).toStrictEqual(expected);
         }
