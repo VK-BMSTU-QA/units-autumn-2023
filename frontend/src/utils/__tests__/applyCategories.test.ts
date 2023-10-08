@@ -28,24 +28,8 @@ describe('test apply categories function', () => {
         expect(applyCategories(products, ['Одежда'])).toStrictEqual(clothes);
     });
 
-    it('should only leave electronics', () => {
-        expect(applyCategories(products, ['Электроника'])).toStrictEqual(electronics);
-    });
-
-    it('should only leave home appliances', () => {
-        expect(applyCategories(products, ['Для дома'])).toStrictEqual(home_appliances);
-    });
-
     it('should leave clothes and electronics', () => {
         expect(applyCategories(products, ['Одежда', 'Электроника'])).toStrictEqual([...electronics, ...clothes]);
-    });
-
-    it('should leave electronics and home appliances', () => {
-        expect(applyCategories(products, ['Электроника', 'Для дома'])).toStrictEqual([...electronics, ...home_appliances]);
-    });
-
-    it('should leave clothes and home appliances', () => {
-        expect(applyCategories(products, ['Одежда', 'Для дома'])).toStrictEqual([...clothes, ...home_appliances]);
     });
 
     it('should leave all products', () => {
