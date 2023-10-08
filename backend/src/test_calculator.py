@@ -167,6 +167,8 @@ class TestCalculator(unittest.TestCase):
                 with self.assertRaises(TypeError):
                     self.calculator.ln(i)        
 
+    def test_ln_inf(self):
+        self.assertAlmostEqual(self.calculator.ln(math.inf), math.inf)
 
 
     def test_log_int_positive(self):
@@ -190,6 +192,9 @@ class TestCalculator(unittest.TestCase):
 
     def test_log_e(self):
         self.assertEqual(self.calculator.log(math.e, math.e), 1)
+
+    def test_log_inf(self):
+        self.assertEqual(self.calculator.log(5, math.inf), 0)
 
     def test_log_zero_division(self):
         with self.assertRaises(ZeroDivisionError):
@@ -231,8 +236,6 @@ class TestCalculator(unittest.TestCase):
     def test_nth_root_float(self):
         for i in range_float_step(-10000, 10000, 55.001):
             for j in range_float_step(-10000, 10000, 55.001):
-                i = float(i)
-                j = float(j)
                 with self.subTest(i=i, j=j):
                     self.assertEqual(self.calculator.nth_root(i, j), i ** (1 / j))
 
