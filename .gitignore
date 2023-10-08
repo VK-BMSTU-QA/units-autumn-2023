@@ -26,7 +26,6 @@ dist-ssr
 
 test-report.html
 
-__snapshots__
 __pycache__
 
 .coverage
