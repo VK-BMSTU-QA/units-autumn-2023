@@ -22,11 +22,15 @@ describe('test MainPage', () => {
         expect(useCurrentTime).toHaveBeenCalledTimes(1);
     });
 
-    it('update categories on click', () => {
+    it('correct time', () => {
         const rendered = render(<MainPage />);
 
         const time = rendered.baseElement.getElementsByTagName('h3')[0];
         expect(time.textContent).toEqual('11:11:11');
+    });
+
+    it('update categories on click', () => {
+        const rendered = render(<MainPage />);
 
         const products =
             rendered.baseElement.getElementsByClassName('product-card');
