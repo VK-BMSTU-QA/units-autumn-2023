@@ -9,7 +9,7 @@ afterEach(jest.clearAllMocks);
 describe('Main page test', () => {
   it('should render correctly', () => {
     jest.useFakeTimers()
-    jest.setSystemTime(new Date('2017-01-01'))
+    jest.setSystemTime(new Date('2023-10-08T12:00:00Z'))
 
     const rendered = render(<MainPage/>);
     expect(rendered.asFragment()).toMatchSnapshot();
@@ -19,7 +19,7 @@ describe('Main page test', () => {
 
   it('should render correctly when click on category', () => {
     jest.useFakeTimers()
-    jest.setSystemTime(new Date('2017-01-01'))
+    jest.setSystemTime(new Date('2023-10-08T12:00:00Z'))
 
     const rendered = render(<MainPage/>);
     const button = rendered.getByText((content, element) => {
