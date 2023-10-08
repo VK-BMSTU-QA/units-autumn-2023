@@ -107,6 +107,10 @@ class TestCalculator(unittest.TestCase):
     def test_nth_root_negative(self):
         self.assertAlmostEqual(self.calculator.nth_root(8, -3), 0.5)
 
+    def test_nth_root_first_arg_negative(self):
+        self.assertAlmostEqual(
+            self.calculator.nth_root(-8, 3), 1 + 1.73j, delta=0.01)
+
     def test_nth_root_zero(self):
         self.assertRaises(ZeroDivisionError, self.calculator.nth_root, 8, 0)
 

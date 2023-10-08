@@ -45,4 +45,22 @@ describe('applyCategories', () => {
 
         expect(res).toStrictEqual(expectedProducts);
     });
+
+    it('returns same products if you pass all categories', () => {
+        const getProducts = () => [
+            makeTestProduct(0, 'Электроника'),
+            makeTestProduct(1, 'Для дома'),
+            makeTestProduct(2, 'Одежда'),
+        ];
+
+        const products = getProducts();
+
+        const res = applyCategories(products, [
+            'Электроника',
+            'Одежда',
+            'Для дома',
+        ]);
+
+        expect(res).toStrictEqual(getProducts());
+    });
 });
