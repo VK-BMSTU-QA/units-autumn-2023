@@ -26,8 +26,8 @@ jest.mock('../../../utils', () => {
     return {
         __esModule: true,
         ...originalModule,
-        updateCategories: jest.fn(() => {return ['Одежда', 'Электроника']}),
-        applyCategories: jest.fn(() => {return useProducts()})
+        updateCategories: jest.fn(() => ['Одежда', 'Электроника']),
+        applyCategories: jest.fn(() => useProducts())
     }
 })
 
@@ -37,11 +37,13 @@ describe('main page test', () => {
         expect(rendered).toMatchSnapshot();
     })
         
-    it('should call updateCategories function when category is clicked', () => {
+    it('should call updateCategories and applyCategory function when category is clicked', () => {
         const rendered = render(<MainPage />)
 
         expect(updateCategories).toBeCalledTimes(0);
+        expect(updateCategories).toBeCalledTimes(0);
         fireEvent.click(rendered.baseElement.getElementsByClassName('categories__badge')[0]);
+        expect(updateCategories).toBeCalledTimes(1);
         expect(updateCategories).toBeCalledTimes(1);
     })
 })
