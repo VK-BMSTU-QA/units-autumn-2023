@@ -1,5 +1,5 @@
 import { applyCategories } from '../applyCategories';
-import { Category, Product } from '../../types';
+import { Product } from '../../types';
 import { useProducts } from '../../hooks';
 
 describe('test get price function', () => {
