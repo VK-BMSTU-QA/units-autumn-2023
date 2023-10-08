@@ -41,6 +41,9 @@ class TestCalculator(unittest.TestCase):
     def test_mul(self):
         self.assertEqual(self.calculator.multiplication(2, 3), 6)
 
+    def test_mul_by_1(self):
+        self.assertEqual(self.calculator.multiplication(4, 1), 4)
+
     def test_mul_negative(self):
         self.assertEqual(self.calculator.multiplication(2, -3), -6)
 
@@ -91,6 +94,9 @@ class TestCalculator(unittest.TestCase):
 
     def test_div_negative(self):
         self.assertAlmostEqual(self.calculator.division(6, -2), -3.0)
+
+    def test_dib_zero(self):
+        self.assertEqual(self.calculator.division(0, 4), 0)
    
     def test_div_float(self):
         self.assertAlmostEqual(self.calculator.division(7, 2), 3.5)
@@ -118,6 +124,12 @@ class TestCalculator(unittest.TestCase):
     
     def test_abs_zero(self):
         self.assertEqual(self.calculator.absolute(0), 0)
+
+    def test_abs_float(self):
+        self.assertAlmostEqual(self.calculator.absolute(4.56), 4.56)
+
+    def test_abs_float_negative(self):
+        self.assertAlmostEqual(self.calculator.absolute(-4.56), 4.56)
 
     def test_abs_str(self):
         self.assertRaises(TypeError, self.calculator.absolute, 'a')
@@ -149,6 +161,12 @@ class TestCalculator(unittest.TestCase):
     def test_degree_float_degree(self):
         self.assertAlmostEqual(self.calculator.degree(16, 0.5), 4.0)
 
+    def test_degree_zero_degree(self):
+        self.assertEqual(self.calculator.degree(4, 0), 1)
+
+    def test_degree_zero_degree_float(self):
+        self.assertEqual(self.calculator.degree(1.25, 0), 1)
+
     def test_degree_str_base(self):
         self.assertRaises(TypeError, self.calculator.degree, 'a', 2)
 
@@ -172,6 +190,21 @@ class TestCalculator(unittest.TestCase):
 
     def test_ln(self):
         self.assertAlmostEqual(self.calculator.ln(5), 1.60943791243)
+
+    def test_ln_1(self):
+        self.assertEqual(self.calculator.ln(1), 0)
+
+    def test_ln_e(self):
+        self.assertEqual(self.calculator.ln(math.e), 1)
+
+    def test_ln_negative(self):
+        self.assertRaises(ValueError, self.calculator.ln, -1)
+
+    def test_ln_str(self):
+        self.assertRaises(TypeError, self.calculator.ln, 'a')
+
+    def test_ln_None(self):
+        self.assertRaises(TypeError, self.calculator.ln, None)
 
     def test_log(self):
         self.assertAlmostEqual(self.calculator.log(16, 2), 4.0)
