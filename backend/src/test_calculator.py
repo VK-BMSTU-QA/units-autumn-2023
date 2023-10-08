@@ -1,6 +1,6 @@
 import unittest
 
-from calculator import Calculator
+from src.calculator import Calculator
 import math
 
 
