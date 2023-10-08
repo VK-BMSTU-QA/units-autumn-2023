@@ -6,7 +6,10 @@ describe('test get price function', () => {
     const products: Product[] = useProducts();
 
     it('should return value with price symbol', () => {
-        expect(applyCategories(products, ['Электроника'])).toEqual([
+        expect(
+            applyCategories(products, ['Электроника', 'Для дома', 'Одежда'])
+        ).toEqual(products);
+        expect(applyCategories(products, [])).toEqual([
             {
                 id: 1,
                 name: 'IPhone 14 Pro',
@@ -15,6 +18,22 @@ describe('test get price function', () => {
                 priceSymbol: '$',
                 category: 'Электроника',
                 imgUrl: '/iphone.png',
+            },
+            {
+                id: 2,
+                name: 'Костюм гуся',
+                description: 'Запускаем гуся, работяги',
+                price: 1000,
+                priceSymbol: '₽',
+                category: 'Одежда',
+            },
+            {
+                id: 3,
+                name: 'Настольная лампа',
+                description: 'Говорят, что ее использовали в pixar',
+                price: 699,
+                category: 'Для дома',
+                imgUrl: '/lamp.png',
             },
             {
                 id: 4,

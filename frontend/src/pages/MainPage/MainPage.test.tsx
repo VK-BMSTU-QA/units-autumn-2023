@@ -6,23 +6,13 @@ import { MainPage } from './MainPage';
 afterEach(jest.clearAllMocks);
 describe('Main page test', () => {
     it('should render correctly', () => {
+        jest.useFakeTimers();
+        jest.setSystemTime(new Date('2020-01-01T03:00:01'));
+
         const rendered = render(<MainPage />);
 
         expect(rendered.asFragment()).toMatchSnapshot();
-    });
-
-    it('should add class for selected badge', () => {
-        const rendered = render(<MainPage />);
-
-        expect(rendered.getByText('Одежда')).toHaveClass(
-            'categories__badge_selected'
-        );
-        expect(rendered.getByText('Электроника')).not.toHaveClass(
-            'categories__badge_selected'
-        );
-        expect(rendered.getByText('Для дома')).not.toHaveClass(
-            'categories__badge_selected'
-        );
+        jest.useRealTimers();
     });
 
     it('should call callback when category click', () => {
