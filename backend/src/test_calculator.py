@@ -55,7 +55,7 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(self.calculator.multiplication(-2, -3), 6)
 
     def test_mul_float(self):
-        self.assertEqual(self.calculator.multiplication(0.1, 0.5), 0.05)
+        self.assertAlmostEqual(self.calculator.multiplication(0.1, 0.5), 0.05)
 
     def test_mul_zero(self):
         self.assertEqual(self.calculator.multiplication(1, 0), 0)
