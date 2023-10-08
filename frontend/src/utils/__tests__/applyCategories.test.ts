@@ -4,7 +4,7 @@ import {applyCategories} from '../applyCategories';
 
 describe('tests for applyCategories function', () => {
     const allCategories: Category[] = ['Одежда', 'Для дома', 'Электроника'];
-    const allPoruducts: Product[] = [
+    const allProducts: Product[] = [
         {
             id: 1,
             name: 'IPhone 14 Pro',
@@ -40,9 +40,13 @@ describe('tests for applyCategories function', () => {
     ];
 
     it('should return products by category', () => {
-        expect(applyCategories(allPoruducts, allCategories)).toEqual(allPoruducts);
-        expect(applyCategories(allPoruducts, [allCategories[1]])).toEqual([allPoruducts[2]]);
-        expect(applyCategories(allPoruducts, allCategories.slice(1, 3))).toEqual([allPoruducts[0], ...allPoruducts.slice(2)]);
-        expect(applyCategories(allPoruducts, [])).toEqual(allPoruducts);
+        expect(applyCategories(allProducts, allCategories)).toEqual(
+            allProducts
+        );
+        expect(applyCategories(allProducts, [allCategories[1]])).toEqual([
+            allProducts[2],
+        ]);
+        expect(applyCategories(allProducts, allCategories.slice(1, 3))).toEqual([allProducts[0], ...allProducts.slice(2)]);
+        expect(applyCategories(allProducts, [])).toEqual(allProducts);
     });
 });
