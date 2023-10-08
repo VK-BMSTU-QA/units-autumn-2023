@@ -189,6 +189,9 @@ class TestCalculator(unittest.TestCase):
     def test_ln(self):
      self.assertAlmostEqual(self.calculator.ln(10), 2.302585092994046)
 
+    def test_ln_e(self):
+        self.assertAlmostEqual(self.calculator.ln(math.e), 1)
+
     def test_ln_str(self):
         self.assertRaises(TypeError, self.calculator.ln, 'a')
 
