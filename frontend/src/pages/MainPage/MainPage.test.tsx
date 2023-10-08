@@ -10,7 +10,6 @@ describe('Main page test', () => {
         jest.setSystemTime(new Date('2020-01-01T03:00:01'));
 
         const rendered = render(<MainPage />);
-
         expect(rendered.asFragment()).toMatchSnapshot();
         jest.useRealTimers();
     });
