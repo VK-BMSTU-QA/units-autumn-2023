@@ -20,7 +20,7 @@ const createProduct = (
 });
 
 describe('test apply categories function', () => {
-    it('should return empty array', () => {
+    it('should return empty array of products', () => {
         const product1 = createProduct(1, 'Футболка', 'Одежда');
         const product2 = createProduct(2, 'Pentium G4560', 'Электроника');
 
