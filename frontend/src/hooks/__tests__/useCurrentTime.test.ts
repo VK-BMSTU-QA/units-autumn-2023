@@ -7,7 +7,7 @@ jest.spyOn(global, 'setTimeout');
 describe('test use current time', () => {
     beforeEach(() => {
         jest.useFakeTimers();
-        jest.setSystemTime(new Date('2017-01-01'));
+        jest.setSystemTime(new Date('2017-01-01T03:01:02'));
     });
 
     afterAll(() => {
@@ -15,7 +15,7 @@ describe('test use current time', () => {
     });
 
     it('should return to be 2017 01 01', () => {
-        const date = new Date('2017-01-01');
+        const date = new Date('2017-01-01T03:01:02');
         const timeElement = renderHook(useCurrentTime);
 
         expect(timeElement.result.current).toBe(
@@ -24,7 +24,7 @@ describe('test use current time', () => {
     });
 
     it('should call function after time', () => {
-        const date = new Date('2017-01-01');
+        const date = new Date('2017-01-01T03:01:02');
         date.setSeconds(date.getSeconds() + 1);
 
         const timeElement = renderHook(useCurrentTime);

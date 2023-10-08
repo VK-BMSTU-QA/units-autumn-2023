@@ -7,12 +7,11 @@ import { MainPage } from '../MainPage';
 describe('Categories test', () => {
     it('should render correctly', () => {
         jest.useFakeTimers();
-        jest.setSystemTime(new Date('2017-01-01'));
+        jest.setSystemTime(new Date('2017-01-01T03:01:02'));
 
         const rendered = render(<MainPage />);
 
         expect(rendered.asFragment()).toMatchSnapshot();
-
         jest.useRealTimers();
     });
 
