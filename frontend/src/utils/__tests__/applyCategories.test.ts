@@ -7,8 +7,8 @@ describe('tests for applyCategories function', () => {
     const allPoruducts = useProducts();
     it('should return products by category', () => {
         expect(applyCategories(allPoruducts, allCategories)).toEqual(allPoruducts);
-        expect(applyCategories(allPoruducts, [allCategories[1]])).toEqual(allPoruducts[1]);
-        expect(applyCategories(allPoruducts, allCategories.slice(1, 3))).toEqual(allPoruducts);
+        expect(applyCategories(allPoruducts, [allCategories[1]])).toEqual([allPoruducts[2]]);
+        expect(applyCategories(allPoruducts, allCategories.slice(1, 3))).toEqual([allPoruducts[0], ...allPoruducts.slice(2)]);
         expect(applyCategories(allPoruducts, [])).toEqual(allPoruducts);
     });
 });
