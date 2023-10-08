@@ -25,6 +25,9 @@ class TestCalculator(unittest.TestCase):
 	
     def test_sub_simple(self):
         self.assertEqual(self.calculator.subtraction(5, 1), 4)
+
+    def test_sub_simple_with_negativ(self):
+        self.assertEqual(self.calculator.subtraction(-5, -1), -4)
 	
     def test_sub_with_null(self):
         self.assertEqual(self.calculator.subtraction(0, 1), -1)
@@ -55,6 +58,9 @@ class TestCalculator(unittest.TestCase):
 	
     def test_div_by_zero(self):
         self.assertIsNone(self.calculator.division(6, 0))
+
+    def test_div_zero_res(self):
+        self.assertEqual(self.calculator.division(0, 10), 0)
  
     def test_div_string_param(self):
         self.assertRaises(TypeError, self.calculator.division, 10, 'abc')
@@ -79,7 +85,10 @@ class TestCalculator(unittest.TestCase):
 	
     def test_deg_simple(self):
         self.assertEqual(self.calculator.degree(3, 2), 9)
-	
+		
+    def test_deg_null_indicator(self):
+        self.assertEqual(self.calculator.degree(3, 0), 1)
+
     def test_deg_negative_indicator(self):
         self.assertEqual(self.calculator.degree(10, -1), 0.1)
 	
@@ -108,7 +117,7 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(self.calculator.ln(1), 0)
 	
     def test_ln_null_param(self):
-       self.assertRaises(ValueError, self.calculator.ln, -10)
+       self.assertRaises(ValueError, self.calculator.ln, 0)
 	
     def test_ln_negative_param(self):
        self.assertRaises(ValueError, self.calculator.ln, -10)
@@ -164,6 +173,9 @@ class TestCalculator(unittest.TestCase):
     def test_nth_root_simple(self):
         self.assertEqual(self.calculator.nth_root(8, 3), 2)
 	
+    def test_nth_root_null_param(self):
+        self.assertEqual(self.calculator.nth_root(0, 3), 0)
+
     def test_nth_null_indicator(self):
         self.assertRaises(ZeroDivisionError, self.calculator.nth_root, 3, 0)
 
