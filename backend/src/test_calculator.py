@@ -2,8 +2,13 @@ from contextlib import AbstractContextManager
 from typing import Any
 import unittest
 from src.calculator import Calculator
-import numpy as np
 import math
+
+def range_float_step(start, stop=None, step=None):
+    indx = start
+    while(indx < stop):
+        yield indx
+        indx += step
 
 class TestCalculator(unittest.TestCase):
     def setUp(self):
@@ -16,8 +21,8 @@ class TestCalculator(unittest.TestCase):
                     self.assertEqual(self.calculator.addition(i, j), i + j)
 
     def test_add_float(self):
-        for i in np.arange(-10000, 10000, 55.001):
-            for j in np.arange(-10000, 10000, 55.001):
+        for i in range_float_step(-10000, 10000, 55.001):
+            for j in range_float_step(-10000, 10000, 55.001):
                 with self.subTest(i=i, j=j):
                     self.assertEqual(self.calculator.addition(i, j), i + j)
 
@@ -33,14 +38,14 @@ class TestCalculator(unittest.TestCase):
 
 
     def test_mul_int(self):
-        for i in np.arange(-10000, 10000, 55):
-            for j in np.arange(-10000, 10000, 55):
+        for i in range_float_step(-10000, 10000, 55):
+            for j in range_float_step(-10000, 10000, 55):
                 with self.subTest(i=i, j=j):
                     self.assertEqual(self.calculator.multiplication(i, j), i * j)
 
     def test_mul_float(self):
-        for i in np.arange(-10000, 10000, 55):
-            for j in np.arange(-10000, 10000, 55):
+        for i in range_float_step(-10000, 10000, 55):
+            for j in range_float_step(-10000, 10000, 55):
                 with self.subTest(i=i, j=j):
                     self.assertEqual(self.calculator.multiplication(i, j), i * j)
 
@@ -59,8 +64,8 @@ class TestCalculator(unittest.TestCase):
                     self.assertEqual(self.calculator.subtraction(i, j), i - j)
 
     def test_sub_float(self):
-        for i in np.arange(-10000, 10000, 55.001):
-            for j in np.arange(-10000, 10000, 55.001):
+        for i in range_float_step(-10000, 10000, 55.001):
+            for j in range_float_step(-10000, 10000, 55.001):
                 with self.subTest(i=i, j=j):
                     self.assertEqual(self.calculator.subtraction(i, j), i - j)
 
@@ -82,8 +87,8 @@ class TestCalculator(unittest.TestCase):
                     self.assertEqual(self.calculator.division(i, j), i / j)
 
     def test_div_float(self):
-        for i in np.arange(-10000, 10000, 55.001):
-            for j in np.arange(-10000, 10000, 55.001):
+        for i in range_float_step(-10000, 10000, 55.001):
+            for j in range_float_step(-10000, 10000, 55.001):
                 with self.subTest(i=i, j=j):
                     self.assertEqual(self.calculator.division(i, j), i / j)
     
@@ -106,7 +111,7 @@ class TestCalculator(unittest.TestCase):
                     self.assertEqual(self.calculator.absolute(i), abs(i))
 
     def test_abs_float(self):
-        for i in np.arange(-10000, 10000, 55.01):
+        for i in range_float_step(-10000, 10000, 55.01):
                 with self.subTest(i=i):
                     self.assertEqual(self.calculator.absolute(i), abs(i))
 
@@ -178,8 +183,8 @@ class TestCalculator(unittest.TestCase):
                         self.calculator.log(i, j)
 
     def test_log_float(self):
-        for i in np.arange(1, 10000, 55.001):
-            for j in np.arange(1.1, 10000, 55.001):
+        for i in range_float_step(1, 10000, 55.001):
+            for j in range_float_step(1.1, 10000, 55.001):
                 with self.subTest(i=i, j=j):
                     self.assertEqual(self.calculator.log(i, j), math.log(i, j))
 
@@ -224,8 +229,8 @@ class TestCalculator(unittest.TestCase):
                     self.assertEqual(self.calculator.nth_root(i, j), i ** (1 / j))
 
     def test_nth_root_float(self):
-        for i in np.arange(-10000, 10000, 55.001):
-            for j in np.arange(-10000, 10000, 55.001):
+        for i in range_float_step(-10000, 10000, 55.001):
+            for j in range_float_step(-10000, 10000, 55.001):
                 i = float(i)
                 j = float(j)
                 with self.subTest(i=i, j=j):
