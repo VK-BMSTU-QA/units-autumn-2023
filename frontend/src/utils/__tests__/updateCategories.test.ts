@@ -2,7 +2,7 @@ import { Category } from "../../types";
 import {updateCategories} from "../updateCategories";
 
 describe('test updateCategories', () => {
-    const allCategories: Category[] = ['Электроника', 'Для дома', 'Одежда']
+    const allCategories: Category[] = ['Электроника', 'Для дома', 'Одежда'];
 
     it('should push back non-existing category into categories', () => {
         expect(updateCategories(allCategories.slice(0, 2), allCategories[2])).toEqual(allCategories);

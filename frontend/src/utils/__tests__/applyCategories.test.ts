@@ -35,9 +35,9 @@ describe('test applyCategories', () => {
             price: 7000,
             category: 'Электроника',
         }
-    ]
+    ];
 
-    const categories: Category[] = [... new Set(products.map (product => product.category))]
+    const categories: Category[] = [... new Set(products.map (product => product.category))];
 
     it('should return products with chosen filters', () => {
         expect(applyCategories(products, categories)).toStrictEqual(products);
