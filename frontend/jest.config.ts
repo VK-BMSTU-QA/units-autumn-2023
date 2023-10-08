@@ -22,4 +22,5 @@ export default {
         },
     },
     coverageReporters: ['text', 'html'],
+    fakeTimers: {'enableGlobally': true}
 };
