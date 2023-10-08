@@ -1,6 +1,6 @@
 import unittest
 import math
-from calculator import Calculator
+from src.calculator import Calculator
 
 
 class TestCalculator(unittest.TestCase):
@@ -15,16 +15,21 @@ class TestCalculator(unittest.TestCase):
         self.assertTrue(math.isnan(self.calculator.addition(float('nan'), 2)))
         self.assertEqual(self.calculator.addition('353', '2.5'), '3532.5')
         self.assertEqual(self.calculator.addition([5], [1, 2, 3]), [5, 1, 2, 3])
+        with self.assertRaises(TypeError):
+            self.calculator.addition('353', 1)
     
     def test_mult(self):
         self.assertEqual(self.calculator.multiplication(10, 2), 20)
         self.assertEqual(self.calculator.multiplication(-10, -2), 20)
         self.assertEqual(self.calculator.multiplication(10, -2), -20)
+        self.assertEqual(self.calculator.multiplication('222', 2), '222222')
         self.assertEqual(self.calculator.multiplication([1, 3, 4], 2), [1, 3, 4, 1, 3, 4])
         with self.assertRaises(TypeError):
             self.calculator.multiplication('353', '2.5')
         with self.assertRaises(TypeError):
             self.calculator.multiplication([1, 3, 4], [1, 2])
+        with self.assertRaises(TypeError):
+            self.calculator.addition('353', 1)
        
 
 
@@ -69,11 +74,18 @@ class TestCalculator(unittest.TestCase):
             self.calculator.degree([1, 2], 2)
         with self.assertRaises(TypeError):
             self.calculator.degree([1, 2], [2, 1])
+        with self.assertRaises(TypeError):
+            self.calculator.addition('353', 1)
 
     def test_ln(self):
         self.assertEqual(self.calculator.ln(math.e), 1)
+        self.assertAlmostEqual(self.calculator.ln(25), 3.2188758248682006)
         with self.assertRaises(ValueError):
             self.calculator.ln(-5)
+        with self.assertRaises(TypeError):
+            self.calculator.ln('353')
+        with self.assertRaises(TypeError):
+            self.calculator.ln([1, 2])
 
     def test_log(self):
         self.assertEqual(self.calculator.log(4, 2), 2)
@@ -99,9 +111,12 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(self.calculator.nth_root(100, 2), 10)
         self.assertAlmostEqual(self.calculator.nth_root(4, 0.5), 16)
         self.assertAlmostEqual(self.calculator.nth_root(4, -2), 0.5)
+        self.assertEqual(self.calculator.nth_root(math.inf, -2), 0)
         self.assertTrue(math.isnan(self.calculator.nth_root(4, float('nan'))))
         with self.assertRaises(TypeError):
             self.calculator.nth_root('353', '1')
+        with self.assertRaises(TypeError):
+            self.calculator.nth_root('353', 1)
         with self.assertRaises(TypeError):
             self.calculator.nth_root([1, 2], 2)
         with self.assertRaises(TypeError):
