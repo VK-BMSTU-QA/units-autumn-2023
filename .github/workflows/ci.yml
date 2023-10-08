@@ -26,7 +26,7 @@ jobs:
 
       - name: Testing
         working-directory: ./frontend
-        run: npm test
+        run: npm test -- -u
 
   testback:
     name: Unit-Tests QA (Backend)
