@@ -15,6 +15,7 @@ class TestCalculator(unittest.TestCase):
         self.assertTrue(math.isnan(self.calculator.addition(float('nan'), 2)))
         self.assertEqual(self.calculator.addition('353', '2.5'), '3532.5')
         self.assertEqual(self.calculator.addition([5], [1, 2, 3]), [5, 1, 2, 3])
+        self.assertTrue(math.isnan(self.calculator.addition(math.inf, -math.inf)))
         with self.assertRaises(TypeError):
             self.calculator.addition('353', 1)
     
@@ -24,6 +25,7 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(self.calculator.multiplication(10, -2), -20)
         self.assertEqual(self.calculator.multiplication('222', 2), '222222')
         self.assertEqual(self.calculator.multiplication([1, 3, 4], 2), [1, 3, 4, 1, 3, 4])
+        self.assertEqual(self.calculator.multiplication(math.inf, -math.inf), -math.inf)
         with self.assertRaises(TypeError):
             self.calculator.multiplication('353', '2.5')
         with self.assertRaises(TypeError):
@@ -38,6 +40,7 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(self.calculator.subtraction(1, -20000), 20001)
         self.assertAlmostEqual(self.calculator.subtraction(1.4, 1.7), -0.3)
         self.assertTrue(math.isnan(self.calculator.subtraction(float('nan'), -2)))
+        self.assertEqual(self.calculator.subtraction(math.inf, -math.inf), math.inf)
         with self.assertRaises(TypeError):
             self.calculator.subtraction('353', '2.5')
         with self.assertRaises(TypeError):
@@ -47,6 +50,7 @@ class TestCalculator(unittest.TestCase):
         self.assertIsNone(self.calculator.division(1, 0))
         self.assertEqual(self.calculator.division(-10, -2), 5)
         self.assertEqual(self.calculator.division(10, -2), -5)
+        self.assertEqual(self.calculator.division(1, math.inf), 0)
         with self.assertRaises(TypeError):
             self.calculator.division([1, 3, 4], 2)
         with self.assertRaises(TypeError):
@@ -57,6 +61,7 @@ class TestCalculator(unittest.TestCase):
     def test_adsolute(self):
         self.assertEqual(self.calculator.adsolute(-1.5), 1.5)
         self.assertTrue(math.isnan(self.calculator.adsolute(float('nan'))))
+        self.assertEqual(self.calculator.adsolute(-math.inf), math.inf)
         with self.assertRaises(TypeError):
             self.calculator.adsolute('353')
         with self.assertRaises(TypeError):
@@ -68,6 +73,7 @@ class TestCalculator(unittest.TestCase):
         self.assertAlmostEqual(self.calculator.degree(4, 1.5), 8)
         self.assertAlmostEqual(self.calculator.degree(4, 0.5), 2)
         self.assertTrue(math.isnan(self.calculator.degree(4, float('nan'))))
+        self.assertEqual(self.calculator.degree(1, math.inf), 1)
         with self.assertRaises(TypeError):
             self.calculator.degree('353', '1')
         with self.assertRaises(TypeError):
@@ -80,6 +86,7 @@ class TestCalculator(unittest.TestCase):
     def test_ln(self):
         self.assertEqual(self.calculator.ln(math.e), 1)
         self.assertAlmostEqual(self.calculator.ln(25), 3.2188758248682006)
+        self.assertEqual(self.calculator.ln(math.inf), math.inf)
         with self.assertRaises(ValueError):
             self.calculator.ln(-5)
         with self.assertRaises(TypeError):
@@ -102,6 +109,7 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(self.calculator.sqrt(4), 2)
         self.assertAlmostEqual(self.calculator.sqrt(1.5), 1.224744871391589)
         self.assertAlmostEqual(self.calculator.sqrt(-1), 6.12e-17+1j)
+        self.assertEqual(self.calculator.sqrt(math.inf), math.inf)
         with self.assertRaises(TypeError):
             self.calculator.sqrt('353')
         with self.assertRaises(TypeError):
