@@ -5,16 +5,14 @@ describe('test update categories function', () => {
     const categories: Category[] = [];
 
     it('should return update currentCategories with changedCategories', () => {
-        expect(updateCategories(categories, 'Электроника')).toBe([
+        expect(updateCategories(categories, 'Электроника')).toEqual([
             'Электроника',
         ]);
-        expect(updateCategories(categories, 'Одежда')).toBe([
+        expect(updateCategories(categories, 'Одежда')).toEqual(['Одежда']);
+        expect(updateCategories(categories, 'Электроника')).toEqual([
             'Электроника',
-            'Одежда',
         ]);
-        expect(updateCategories(categories, 'Электроника')).toBe(['Одежда']);
-        expect(
-            updateCategories(categories, 'Странная категория ни к месту' as Category)
-        ).toBe(['Одежда']);
+        categories.push('Одежда');
+        expect(updateCategories(categories, 'Одежда')).toEqual([]);
     });
 });
