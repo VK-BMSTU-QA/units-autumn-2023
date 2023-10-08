@@ -189,24 +189,33 @@ class TestCalculator(unittest.TestCase):
     def test_ln__none(self):
         self.assertRaises(TypeError, self.calculator.ln, None)
 
+    def test_ln__float(self):
+        self.assertEqual(self.calculator.ln(4.34), 1.4678743481123135)
+
 
     # log
-    def test_ln(self):
+    def test_log(self):
         self.assertEqual(self.calculator.log(8, 2), 3)
 
-    def test_ln__reverse(self):
+    def test_log__reverse(self):
         self.assertAlmostEqual(self.calculator.log(2, 8), 1/3)
 
-    def test_ln__neg(self):
+    def test_log__neg(self):
         self.assertRaises(ValueError, self.calculator.log, -1, 2)
 
-    def test_ln__string(self):
+    def test_log__neg_base(self):
+        self.assertRaises(ValueError, self.calculator.log, 5, -2)
+
+    def test_log__float(self):
+        self.assertEqual(self.calculator.log(4.34, 1.4), 4.362542249703616)
+
+    def test_log__string(self):
         self.assertRaises(TypeError, self.calculator.log, 'asd', 2)
 
-    def test_ln__array(self):
+    def test_log__array(self):
         self.assertRaises(TypeError, self.calculator.log, [1, 2], 2)
 
-    def test_ln__none(self):
+    def test_log__none(self):
         self.assertRaises(TypeError, self.calculator.log, None, 2)
 
 
@@ -228,7 +237,7 @@ class TestCalculator(unittest.TestCase):
 
 
 
-    # sqrt
+    # nth_root
     def test_nth_root(self):
         self.assertEqual(self.calculator.nth_root(16, 4), 2)
 
