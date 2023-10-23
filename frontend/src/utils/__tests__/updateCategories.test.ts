@@ -17,4 +17,8 @@ describe('test update categories function', () => {
         expect(updateCategories(['Электроника', 'Для дома'], 'Электроника')).toStrictEqual(['Для дома']);
         expect(updateCategories(['Для дома'], 'Для дома')).toStrictEqual([]);
     });
+
+    it('should add category to current if there are no current categories', () => {
+        expect(updateCategories([], 'Электроника')).toStrictEqual(['Электроника'])
+    })
 });
