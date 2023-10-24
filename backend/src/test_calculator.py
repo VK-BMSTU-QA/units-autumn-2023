@@ -1,6 +1,22 @@
 import unittest
 from src.calculator import Calculator
 import math
+from dataclasses import dataclass
+
+
+@dataclass
+class TestCase:
+    msg: str
+    args: tuple[float]
+    res: float
+    delta: float = 1e-7
+
+
+@dataclass
+class ExceptionTestCase:
+    msg: str
+    args: tuple[float]
+    exception: any
 
 
 class TestCalculator(unittest.TestCase):
@@ -8,74 +24,75 @@ class TestCalculator(unittest.TestCase):
     def setUp(self):
         self.calculator = Calculator()
 
+    def run_subtests(self, test_cases, func):
+        for test_case in test_cases:
+            with self.subTest(msg=test_case.msg):
+                self.assertAlmostEqual(
+                    func(*test_case.args), test_case.res, delta=test_case.delta)
+                
+    def run_subtests_error(self, test_cases, func):
+        for test_case in test_cases:
+            with self.subTest(msg=test_case.msg):
+                self.assertRaises(test_case.exception, func, *test_case.args)
+
     def test_add(self):
-        self.assertAlmostEqual(self.calculator.addition(1.2, 2), 3.2)
+        test_cases = (
+            TestCase(msg="positive", args=(1.2, 2), res=3.2),
+            TestCase(msg="zero", args=(2.3, 0), res=2.3),
+            TestCase(msg="negative", args=(3, -2.1), res=0.9),
+        )
 
-    def test_add_zero(self):
-        self.assertAlmostEqual(self.calculator.addition(2.3, 0), 2.3)
-
-    def test_add_negative(self):
-        self.assertAlmostEqual(self.calculator.addition(3, -2.1), 0.9)
+        self.run_subtests(test_cases, self.calculator.addition)
 
     def test_sub(self):
-        self.assertAlmostEqual(self.calculator.subtraction(5.1, 1), 4.1)
+        test_cases = (
+            TestCase(msg="positive", args=(5.1, 1), res=4.1),
+            TestCase(msg="zero", args=(3, 0), res=3),
+            TestCase(msg="negative", args=(5, -3.5), res=8.5),
+        )
 
-    def test_sub_zero(self):
-        self.assertAlmostEqual(self.calculator.subtraction(3, 0), 3)
-
-    def test_sub_negative(self):
-        self.assertAlmostEqual(self.calculator.subtraction(5, -3.5), 8.5)
+        self.run_subtests(test_cases, self.calculator.subtraction)
 
     def test_mult(self):
-        self.assertAlmostEqual(self.calculator.multiplication(5.1, 2), 10.2)
+        test_cases = (
+            TestCase(msg="positive", args=(5.1, 2), res=10.2),
+            TestCase(msg="zero", args=(3, 0), res=0),
+            TestCase(msg="negative", args=(5, -3.2), res=-16),
+            TestCase(msg="one", args=(6.5, 1), res=6.5),
+        )
 
-    def test_mult_zero(self):
-        self.assertAlmostEqual(self.calculator.multiplication(3, 0), 0)
-
-    def test_mult_negative(self):
-        self.assertAlmostEqual(self.calculator.multiplication(5, -3.2), -16)
-
-    def test_mult_one(self):
-        self.assertAlmostEqual(self.calculator.multiplication(6.5, 1), 6.5)
+        self.run_subtests(test_cases, self.calculator.multiplication)
 
     def test_div(self):
-        self.assertAlmostEqual(self.calculator.division(6, 4), 1.5)
+        test_cases = (
+            TestCase(msg="positive", args=(6, 4), res=1.5),
+            TestCase(msg="negative", args=(5, -2), res=-2.5),
+            TestCase(msg="one", args=(6.5, 1), res=6.5),
+            TestCase(msg="zero divident", args=(0, 5.1), res=0),
+            TestCase(msg="zero divisor", args=(3, 0), res=None),
+            TestCase(msg="zero by zero", args=(0, 0), res=None),
+        )
 
-    def test_div_zero_divident(self):
-        self.assertAlmostEqual(self.calculator.division(0, 5.1), 0)
+        self.run_subtests(test_cases, self.calculator.division)
 
-    def test_div_zero_divisor(self):
-        self.assertEqual(self.calculator.division(3, 0), None)
+    def test_abs(self):
+        test_cases = (
+            TestCase(msg="positive", args=(3.3,), res=3.3),
+            TestCase(msg="negative", args=(-5.3,), res=5.3),
+            TestCase(msg="zero", args=(0,), res=0),
+        )
 
-    def test_div_zero_by_zero(self):
-        self.assertEqual(self.calculator.division(0, 0), None)
+        self.run_subtests(test_cases, self.calculator.adsolute)
 
-    def test_div_negative(self):
-        self.assertAlmostEqual(self.calculator.division(5, -2), -2.5)
+    def test_degree(self):
+        test_cases = (
+            TestCase(msg="positive", args=(2, 3), res=8),
+            TestCase(msg="negative", args=(2, -3), res=0.125),
+            TestCase(msg="zero", args=(8.5, 0), res=1),
+            TestCase(msg="float", args=(9, 1.5), res=27),
+        )
 
-    def test_div_one(self):
-        self.assertAlmostEqual(self.calculator.division(6.5, 1), 6.5)
-
-    def test_abs_positive(self):
-        self.assertAlmostEqual(self.calculator.adsolute(3.3), 3.3)
-
-    def test_abs_negative(self):
-        self.assertAlmostEqual(self.calculator.adsolute(-5.3), 5.3)
-
-    def test_abs_zero(self):
-        self.assertAlmostEqual(self.calculator.adsolute(0), 0)
-
-    def test_degree_positive(self):
-        self.assertAlmostEqual(self.calculator.degree(2, 3), 8)
-
-    def test_degree_negative(self):
-        self.assertAlmostEqual(self.calculator.degree(2, -3), 0.125)
-
-    def test_degree_zero(self):
-        self.assertAlmostEqual(self.calculator.degree(8.5, 0), 1)
-
-    def test_degree_float(self):
-        self.assertAlmostEqual(self.calculator.degree(9, 1.5), 27)
+        self.run_subtests(test_cases, self.calculator.degree)
 
     def test_ln(self):
         self.assertAlmostEqual(self.calculator.ln(math.exp(1.5)), 1.5)
@@ -86,36 +103,35 @@ class TestCalculator(unittest.TestCase):
     def test_log(self):
         self.assertAlmostEqual(self.calculator.log(8, 2), 3)
 
-    def test_log_one_base(self):
-        self.assertRaises(ZeroDivisionError, self.calculator.log, 12, 1)
+    def test_log_error(self):
+        test_cases = (
+            ExceptionTestCase(msg="one base", args=(12, 1), exception=ZeroDivisionError),
+            ExceptionTestCase(msg="negative base", args=(8, -3), exception=ValueError),
+        )
+        self.run_subtests_error(test_cases, self.calculator.log)
 
-    def test_log_negative(self):
-        self.assertRaises(ValueError, self.calculator.log, 8, -3)
 
     def test_sqrt(self):
-        self.assertAlmostEqual(self.calculator.sqrt(16), 4)
+        test_cases = (
+            TestCase(msg="positive", args=(16,), res=4),
+            TestCase(msg="negative", args=(-4,), res=2j),
+            TestCase(msg="zero", args=(0,), res=0),
+        )
 
-    def test_sqrt_negative(self):
-        self.assertAlmostEqual(self.calculator.sqrt(-4), 2j)
-
-    def test_sqrt_zero(self):
-        self.assertAlmostEqual(self.calculator.sqrt(0), 0)
+        self.run_subtests(test_cases, self.calculator.sqrt)
 
     def test_nth_root(self):
-        self.assertAlmostEqual(self.calculator.nth_root(16, 4), 2)
+        test_cases = (
+            TestCase(msg="positive", args=(16, 4), res=2),
+            TestCase(msg="degree negative", args=(8, -3), res=0.5),
+            TestCase(msg="radicand negative", args=(-8, 3), res=1 + 1.73j, delta=0.01),
+            TestCase(msg="float", args=(3, 0.5), res=9),
+        )
 
-    def test_nth_root_negative(self):
-        self.assertAlmostEqual(self.calculator.nth_root(8, -3), 0.5)
-
-    def test_nth_root_first_arg_negative(self):
-        self.assertAlmostEqual(
-            self.calculator.nth_root(-8, 3), 1 + 1.73j, delta=0.01)
+        self.run_subtests(test_cases, self.calculator.nth_root)
 
     def test_nth_root_zero(self):
         self.assertRaises(ZeroDivisionError, self.calculator.nth_root, 8, 0)
-
-    def test_nth_root_float(self):
-        self.assertAlmostEqual(self.calculator.nth_root(3, 0.5), 9)
 
 
 if __name__ == "__main__":
