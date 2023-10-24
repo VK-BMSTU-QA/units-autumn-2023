@@ -19,7 +19,7 @@ class Calculator:
         if x2 != 0:
             return x1 / x2
 
-    def adsolute(self, x):
+    def absolute(self, x):
         return abs(x)
 
     def degree(self, x, n):
