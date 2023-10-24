@@ -4,32 +4,27 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
-import { useCurrentTime } from '../../hooks';
-import { applyCategories, updateCategories } from '../../utils';
+import * as useCurrentTimeHookModule from '../../hooks/useCurrentTime';
+import * as applyCategoriesUtilsModule from '../../utils/applyCategories';
+import * as updateCategoriesUtilsModule from '../../utils/updateCategories';
 import { MainPage } from './MainPage';
 
+const mockUseCurrentTime = jest.spyOn(
+    useCurrentTimeHookModule,
+    'useCurrentTime'
+);
+mockUseCurrentTime.mockReturnValue('12:00.00');
+
+const mockApplyCategories = jest.spyOn(
+    applyCategoriesUtilsModule,
+    'applyCategories'
+);
+const mockUpdateCategories = jest.spyOn(
+    updateCategoriesUtilsModule,
+    'updateCategories'
+);
+
 afterEach(jest.clearAllMocks);
-
-jest.mock('../../hooks/', () => {
-    const originalModule = jest.requireActual('../../hooks/');
-
-    return {
-        __esModule: true,
-        ...originalModule,
-        useCurrentTime: jest.fn(() => '12:00.00'),
-    };
-});
-
-jest.mock('../../utils/', () => {
-    const originalModule = jest.requireActual('../../utils/');
-
-    return {
-        __esModule: true,
-        ...originalModule,
-        applyCategories: jest.fn(originalModule.applyCategories),
-        updateCategories: jest.fn(originalModule.updateCategories),
-    };
-});
 
 describe('MainPage test', () => {
     it('should render correctly', () => {
@@ -41,34 +36,53 @@ describe('MainPage test', () => {
     it('should call useCurrentTime once on create', () => {
         render(<MainPage />);
 
-        expect(useCurrentTime).toHaveBeenCalledTimes(1);
+        expect(mockUseCurrentTime).toHaveBeenCalledTimes(1);
     });
 
     it('should update selected categories on category click', () => {
         const rendered = render(<MainPage />);
 
-        expect(updateCategories).toHaveBeenCalledTimes(0);
+        expect(mockUpdateCategories).toHaveBeenCalledTimes(0);
 
         fireEvent.click(rendered.getAllByText('Одежда')[0]);
 
-        expect(updateCategories).toHaveBeenCalledTimes(1);
+        expect(mockUpdateCategories).toHaveBeenCalledTimes(1);
 
         fireEvent.click(rendered.getAllByText('Одежда')[0]);
 
-        expect(updateCategories).toHaveBeenCalledTimes(2);
+        expect(mockUpdateCategories).toHaveBeenCalledTimes(2);
     });
 
     it('should apply categories to products on category click', () => {
         const rendered = render(<MainPage />);
 
-        expect(applyCategories).toHaveBeenCalledTimes(1);
+        expect(mockApplyCategories).toHaveBeenCalledTimes(1);
+        expect(
+            rendered.container.getElementsByClassName(
+                'categories__badge_selected'
+            )
+        ).toHaveLength(0);
 
         fireEvent.click(rendered.getAllByText('Электроника')[0]);
-
-        expect(applyCategories).toHaveBeenCalledTimes(2);
+        expect(mockApplyCategories).toHaveBeenCalledTimes(2);
+        expect(
+            rendered.container.getElementsByClassName('product-card')
+        ).toHaveLength(2);
+        expect(
+            rendered.container.getElementsByClassName(
+                'categories__badge_selected'
+            )
+        ).toHaveLength(1);
+        expect(rendered.getByText('IPhone 14 Pro')).toBeInTheDocument();
+        expect(rendered.getByText('Принтер')).toBeInTheDocument();
+        expect(rendered.queryByText('Костюм гуся')).not.toBeInTheDocument();
 
         fireEvent.click(rendered.getAllByText('Электроника')[0]);
-
-        expect(applyCategories).toHaveBeenCalledTimes(3);
+        expect(mockApplyCategories).toHaveBeenCalledTimes(3);
+        expect(
+            rendered.container.getElementsByClassName(
+                'categories__badge_selected'
+            )
+        ).toHaveLength(0);
     });
 });

@@ -2,50 +2,39 @@ import { Category } from '../../types';
 import { updateCategories } from '../updateCategories';
 
 describe('test update categories function', () => {
-    it('should return empty array', () => {
-        expect(updateCategories(['Одежда'], 'Одежда')).toStrictEqual([]);
-
-        expect(updateCategories(['Для дома'], 'Для дома')).toStrictEqual([]);
-
-        expect(updateCategories(['Электроника'], 'Электроника')).toStrictEqual(
-            []
-        );
-    });
-
-    it('should return array with single category', () => {
-        expect(updateCategories([], 'Одежда')).toStrictEqual([
-            'Одежда',
-        ] as Category[]);
-
-        expect(updateCategories([], 'Для дома')).toStrictEqual([
+    test.each<[Category[], Category, Category[]]>([
+        [['Одежда'], 'Одежда', []],
+        [['Одежда', 'Для дома'], 'Для дома', ['Одежда']],
+        [
+            ['Электроника', 'Для дома', 'Одежда'],
             'Для дома',
-        ] as Category[]);
+            ['Электроника', 'Одежда'],
+        ],
+    ])(
+        'should remove categories correct and in the right order: [%s, %s] to %s',
+        (categories, category, expected) => {
+            expect(updateCategories(categories, category)).toStrictEqual(
+                expected
+            );
+        }
+    );
 
-        expect(updateCategories([], 'Электроника')).toStrictEqual([
-            'Электроника',
-        ] as Category[]);
-    });
-
-    it('should add to non empty categories array', () => {
-        expect(updateCategories(['Одежда'], 'Для дома')).toStrictEqual([
+    test.each<[Category[], Category, Category[]]>([
+        [[], 'Одежда', ['Одежда']],
+        [['Одежда'], 'Для дома', ['Одежда', 'Для дома']],
+        [
+            ['Электроника', 'Для дома'],
             'Одежда',
-            'Для дома',
-        ] as Category[]);
-
-        expect(
-            updateCategories(['Электроника', 'Для дома'], 'Одежда')
-        ).toStrictEqual(['Электроника', 'Для дома', 'Одежда'] as Category[]);
-    });
-
-    it('should remove single item from categories array then len > 1', () => {
-        expect(
-            updateCategories(['Одежда', 'Для дома'], 'Для дома')
-        ).toStrictEqual(['Одежда'] as Category[]);
-
-        expect(
-            updateCategories(['Электроника', 'Для дома', 'Одежда'], 'Для дома')
-        ).toStrictEqual(['Электроника', 'Одежда'] as Category[]);
-    });
+            ['Электроника', 'Для дома', 'Одежда'],
+        ],
+    ])(
+        'should add categories correct and in the right order: [%s, %s] to %s',
+        (categories, category, expected) => {
+            expect(updateCategories(categories, category)).toStrictEqual(
+                expected
+            );
+        }
+    );
 
     it('should check unexpected inputs', () => {
         expect(updateCategories(['Одежда', 'Одежда'], 'Одежда')).toStrictEqual(
