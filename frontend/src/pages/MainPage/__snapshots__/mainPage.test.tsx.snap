@@ -11,7 +11,7 @@ exports[`Main page test should render correctly 1`] = `
       VK Маркет
     </h2>
     <h3>
-      15:00:00
+      12:00:00
     </h3>
     <div
       class="main-page__parameters"
@@ -180,7 +180,7 @@ exports[`Main page test should render correctly when click on category 1`] = `
       VK Маркет
     </h2>
     <h3>
-      15:00:00
+      12:00:00
     </h3>
     <div
       class="main-page__parameters"
