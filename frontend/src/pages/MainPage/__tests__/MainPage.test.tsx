@@ -3,7 +3,8 @@ import { MainPage } from '../MainPage'
 import React from 'react'
 
 import {render, fireEvent} from '@testing-library/react'
-import { useProducts } from '../../../hooks'
+// import { useProducts } from '../../../hooks'
+import * as useProducts from '../../../hooks/useProducts'
 import * as updateCategories  from '../../../utils/updateCategories'
 import * as useCurrentTime from '../../../hooks/useCurrentTime'
 import * as applyCatgegories from '../../../utils/applyCategories'
@@ -11,8 +12,9 @@ import * as applyCatgegories from '../../../utils/applyCategories'
 afterEach(jest.clearAllMocks)
 
 jest.spyOn(useCurrentTime, 'useCurrentTime').mockReturnValue('00:00:00')
-jest.spyOn(applyCatgegories, 'applyCategories').mockReturnValue(useProducts())
+jest.spyOn(applyCatgegories, 'applyCategories').mockReturnValue(useProducts.useProducts())
 jest.spyOn(updateCategories, 'updateCategories').mockReturnValue(['Одежда', 'Электроника'])
+const mockUseProducts = jest.spyOn(useProducts, 'useProducts');
 
 describe('main page test', () => {
     it('should render main page correctly', () => {
