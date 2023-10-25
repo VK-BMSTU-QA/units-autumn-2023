@@ -14,13 +14,20 @@ const newTestProduct = (
 })
 
 describe('test applyCategories function', () => {
-    it('should return product list matching selected categories', () => {
+    it('should return product matching only chosen category', () => {
 
-        const prod1 = newTestProduct('Одежда')
-        const prod2 = newTestProduct('Для дома')
+        const prodCloth = newTestProduct('Одежда')
+        const prodHome = newTestProduct('Для дома')
 
-        expect(applyCategories([prod1, prod2], ['Одежда'])).toStrictEqual([prod1]);
-        expect(applyCategories([prod1, prod2], ['Одежда', 'Для дома'])).toStrictEqual([prod1, prod2]);
-        expect(applyCategories([prod1, prod2], [])).toStrictEqual([prod1, prod2]);
+        expect(applyCategories([prodCloth, prodHome], ['Одежда'])).toStrictEqual([prodCloth]);
+        
+    })
+    
+    it('should return all products', () => {
+        const prodCloth = newTestProduct('Одежда')
+        const prodHome = newTestProduct('Для дома')
+
+        expect(applyCategories([prodCloth, prodHome], ['Одежда', 'Для дома'])).toStrictEqual([prodCloth, prodHome]);
+        expect(applyCategories([prodCloth, prodHome], [])).toStrictEqual([prodCloth, prodHome]);
     })
 })

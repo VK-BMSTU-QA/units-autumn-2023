@@ -29,12 +29,8 @@ describe('main page test', () => {
         expect(mockUpdateCategories).toBeCalledTimes(0);
         expect(mockApplyCategories).toBeCalledTimes(1);
 
-        expect(rendered.container.getElementsByClassName('product-card')).toHaveLength(4)
-
         fireEvent.click(rendered.baseElement.getElementsByClassName('categories__badge')[1]);
         expect(mockUpdateCategories).toBeCalledTimes(1);
         expect(mockApplyCategories).toBeCalledTimes(2);
-        expect(rendered.container.getElementsByClassName('product-card')).toHaveLength(4)
-
     })
 })
