@@ -3,33 +3,16 @@ import { MainPage } from '../MainPage'
 import React from 'react'
 
 import {render, fireEvent} from '@testing-library/react'
-import { useCurrentTime, useProducts } from '../../../hooks'
-import { updateCategories } from '../../../utils'
+import { useProducts } from '../../../hooks'
+import * as updateCategories  from '../../../utils/updateCategories'
+import * as useCurrentTime from '../../../hooks/useCurrentTime'
+import * as applyCatgegories from '../../../utils/applyCategories'
 
 afterEach(jest.clearAllMocks)
 
-jest.mock('../../../hooks', () => {
-    
-    const originalModule = jest.requireActual('../../../hooks');
-
-    return {
-        __esModule: true,
-        ...originalModule,
-        useCurrentTime: jest.fn(() => {return '00:00:00'}),
-    };
-});
-
-jest.mock('../../../utils', () => {
-    
-    const originalModule = jest.requireActual('../../../utils')
-
-    return {
-        __esModule: true,
-        ...originalModule,
-        updateCategories: jest.fn(() => ['Одежда', 'Электроника']),
-        applyCategories: jest.fn(() => useProducts())
-    }
-})
+jest.spyOn(useCurrentTime, 'useCurrentTime').mockReturnValue('00:00:00')
+jest.spyOn(applyCatgegories, 'applyCategories').mockReturnValue(useProducts())
+jest.spyOn(updateCategories, 'updateCategories').mockReturnValue(['Одежда', 'Электроника'])
 
 describe('main page test', () => {
     it('should render main page correctly', () => {
