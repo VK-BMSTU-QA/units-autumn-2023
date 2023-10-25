@@ -17,8 +17,6 @@ mockApplyCategories.mockReturnValue(useProducts.useProducts())
 const mockUpdateCategories = jest.spyOn(updateCategories, 'updateCategories')
 mockUpdateCategories.mockReturnValue(['Одежда', 'Электроника'])
 
-const getCards = (rendered) => rendered.container.getElementsByClassName('product-card')
-
 describe('main page test', () => {
     it('should render main page correctly', () => {
         const rendered = render(<MainPage />);
