@@ -31,12 +31,12 @@ describe('main page test', () => {
         expect(mockUpdateCategories).toBeCalledTimes(0);
         expect(mockApplyCategories).toBeCalledTimes(1);
 
-        expect(getCards(rendered)).toHaveLength(1);
+        expect(rendered.container.getElementsByClassName('product-card')).toHaveLength(2)
 
         fireEvent.click(rendered.baseElement.getElementsByClassName('categories__badge')[0]);
         expect(mockUpdateCategories).toBeCalledTimes(1);
         expect(mockApplyCategories).toBeCalledTimes(2);
-        expect(getCards(rendered)).toHaveLength(1);
+        expect(rendered.container.getElementsByClassName('product-card')).toHaveLength(2)
 
     })
 })
