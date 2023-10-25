@@ -4,8 +4,7 @@ import '@testing-library/jest-dom';
 import { MainPage } from './MainPage';
 import * as currentTimeHook from "../../hooks/useCurrentTime"
 
-const mockCurrentTime = jest.spyOn(currentTimeHook, 'useCurrentTime');
-mockCurrentTime.mockReturnValue('20:58:28')
+jest.spyOn(currentTimeHook, 'useCurrentTime').mockReturnValue('20:58:28')
 
 afterEach(jest.clearAllMocks);
 describe('MainPages test', () => {
@@ -38,15 +37,15 @@ describe('MainPages test', () => {
     test('Display category cards when category buttons "Для дома", "Электроника" is clicked', () => {
       const mainPage = render(<MainPage />);
       
-        const categoryButton1 = mainPage.getByText('Для дома', {selector: '.categories__badge'});
-        const categoryButton2 = mainPage.getByText('Электроника', {selector: '.categories__badge'});
+        const categoryButtonForHome = mainPage.getByText('Для дома', {selector: '.categories__badge'});
+        const categoryButtonElectronics = mainPage.getByText('Электроника', {selector: '.categories__badge'});
       
         expect(mainPage.queryByText('Костюм гуся')).toBeInTheDocument();
         expect(mainPage.queryByText('Принтер')).toBeInTheDocument();
         expect(mainPage.queryByText('Настольная лампа')).toBeInTheDocument();
       
-        fireEvent.click(categoryButton1);
-        fireEvent.click(categoryButton2);
+        fireEvent.click(categoryButtonForHome);
+        fireEvent.click(categoryButtonElectronics);
       
         expect(mainPage.queryByText('Костюм гуся')).toBeNull();
         expect(mainPage.queryByText('Принтер')).toBeInTheDocument();

@@ -6,8 +6,8 @@ describe('test apply categories function', () => {
     const products = useProducts()
     const categories: Category[] = ['Электроника', 'Для дома', 'Одежда']
 
-    it('should return products from this categories', () => {
-        expect(applyCategories(products, categories.slice(0, 2))).toEqual([
+    it('should return products from these categories with changes', () => {
+        expect(applyCategories(products, [categories[0], categories[1]])).toEqual([
             {
                 id: 1,
                 name: 'IPhone 14 Pro',
@@ -33,6 +33,9 @@ describe('test apply categories function', () => {
                 category: 'Электроника',
             },
         ]);
+    });
+
+    it('should return products from these categories without changes', () => {
         expect(applyCategories(products, [])).toEqual(products);
         expect(applyCategories(products, categories)).toEqual(products);
     });
