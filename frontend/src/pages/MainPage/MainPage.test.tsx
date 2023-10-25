@@ -11,15 +11,6 @@ mockCurrentTime.mockReturnValue('16:10:15')
 const mockApplyCategories = jest.spyOn(applyCategoriesUtil, 'applyCategories');
 const mockUpdateCategories = jest.spyOn(updateCategoriesUtil, 'updateCategories')
 
-const findNodeWithText = (nodes: HTMLCollection, text: string) => {
-    for (const node of nodes) {
-        if (node.textContent === text)
-            return node;
-    }
-
-    return undefined;
-}
-
 afterEach(jest.clearAllMocks);
 describe('Main page test', () => {
     it('should render correctly', () => {
@@ -28,25 +19,32 @@ describe('Main page test', () => {
         expect(rendered.asFragment()).toMatchSnapshot();
     });
 
-    it('should call applyCategories on category click', () => {
-        const {container} = render(<MainPage/>);
+    it('should call applyCategories on category click', async () => {
+        const rendered = render(<MainPage/>);
 
-        const categoryButtons = container.getElementsByClassName('categories__badge');
-        const clothButton = findNodeWithText(categoryButtons, 'Одежда');
-
+        const clothButton = await rendered.findByTestId('pc-Электроника')
         expect(clothButton).not.toBeUndefined;
 
         expect(mockApplyCategories).toHaveBeenCalledTimes(1);
-        fireEvent.click(clothButton!);
+
+        expect(rendered.container.getElementsByClassName('categories__badge_selected')).toHaveLength(0);
+
+        fireEvent.click(clothButton);
+        
         expect(mockApplyCategories).toHaveBeenCalledTimes(2);
+
+        expect(rendered.container.getElementsByClassName('product-card')).toHaveLength(2);
+        expect(rendered.container.getElementsByClassName('categories__badge_selected')).toHaveLength(1);
+
+        expect(rendered.getByText('IPhone 14 Pro')).toBeInTheDocument();
+        expect(rendered.getByText('Принтер')).toBeInTheDocument();
+        expect(rendered.queryByText('Костюм гуся')).not.toBeInTheDocument();
     });
 
-    it('should call updateCategories on category click', () => {
-        const {container} = render(<MainPage/>);
+    it('should call updateCategories on category click', async () => {
+        const rendered = render(<MainPage/>);
 
-        const categoryButtons = container.getElementsByClassName('categories__badge');
-        const clothButton = findNodeWithText(categoryButtons, 'Одежда');
-
+        const clothButton = await rendered.findByTestId('pc-Одежда')
         expect(clothButton).not.toBeUndefined;
 
         expect(mockUpdateCategories).toHaveBeenCalledTimes(0);

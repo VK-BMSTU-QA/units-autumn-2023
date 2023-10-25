@@ -20,6 +20,7 @@ export const Categories: FC<CategoriesProps> = ({
         {allFilters.map((filter) => (
             <div
                 key={filter}
+                data-testid={`pc-${filter}`}
                 onClick={() => onCategoryClick?.(filter)}
                 className={cn('categories__badge', {
                     categories__badge_selected:
