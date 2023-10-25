@@ -12,9 +12,10 @@ import * as applyCatgegories from '../../../utils/applyCategories'
 afterEach(jest.clearAllMocks)
 
 jest.spyOn(useCurrentTime, 'useCurrentTime').mockReturnValue('00:00:00')
-jest.spyOn(applyCatgegories, 'applyCategories').mockReturnValue(useProducts.useProducts())
-jest.spyOn(updateCategories, 'updateCategories').mockReturnValue(['Одежда', 'Электроника'])
-const mockUseProducts = jest.spyOn(useProducts, 'useProducts');
+const mockApplyCategories = jest.spyOn(applyCatgegories, 'applyCategories')
+mockApplyCategories.mockReturnValue(useProducts.useProducts())
+const mockUpdateCategories = jest.spyOn(updateCategories, 'updateCategories')
+mockUpdateCategories.mockReturnValue(['Одежда', 'Электроника'])
 
 describe('main page test', () => {
     it('should render main page correctly', () => {
@@ -25,10 +26,10 @@ describe('main page test', () => {
     it('should call updateCategories and applyCategory function when category is clicked', () => {
         const rendered = render(<MainPage />)
 
-        expect(updateCategories).toBeCalledTimes(0);
-        expect(updateCategories).toBeCalledTimes(0);
+        expect(mockUpdateCategories).toBeCalledTimes(0);
+        expect(mockApplyCategories).toBeCalledTimes(1);
         fireEvent.click(rendered.baseElement.getElementsByClassName('categories__badge')[0]);
-        expect(updateCategories).toBeCalledTimes(1);
-        expect(updateCategories).toBeCalledTimes(1);
+        expect(mockUpdateCategories).toBeCalledTimes(1);
+        expect(mockApplyCategories).toBeCalledTimes(2);
     })
 })
