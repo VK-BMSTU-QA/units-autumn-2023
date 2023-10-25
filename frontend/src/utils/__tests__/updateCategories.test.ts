@@ -1,4 +1,4 @@
-import {updateCategories} from "../updateCategories";
+import { updateCategories } from "../updateCategories";
 
 describe('test update categories function', () => {
   it('should add category in list', () => {

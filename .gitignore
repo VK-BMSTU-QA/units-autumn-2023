@@ -26,3 +26,4 @@ dist-ssr
 
 test-report.html
 
+backend/src/.coverage
