@@ -3,7 +3,6 @@ import { MainPage } from './MainPage';
 import { fireEvent, render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { useCurrentTime } from '../../hooks/useCurrentTime';
-import { useProducts } from '../../hooks';
 import { getPrice } from '../../utils';
 import { Product } from '../../types';
 
@@ -29,14 +28,48 @@ describe('test MainPage', () => {
         const rendered = render(<MainPage />);
 
         const time =
-            rendered.baseElement.querySelector('.time')?.textContent ?? '';
+            rendered.baseElement.querySelector('[data-time]')?.textContent ??
+            '';
         expect(time).toEqual('11:11:11');
     });
 
     it('update categories on click', () => {
         const rendered = render(<MainPage />);
 
-        const products = useProducts();
+        const products: Product[] = [
+            {
+                id: 1,
+                name: 'IPhone 14 Pro',
+                description: 'Latest iphone, buy it now',
+                price: 999,
+                priceSymbol: '$',
+                category: 'Электроника',
+                imgUrl: '/iphone.png',
+            },
+            {
+                id: 2,
+                name: 'Костюм гуся',
+                description: 'Запускаем гуся, работяги',
+                price: 1000,
+                priceSymbol: '₽',
+                category: 'Одежда',
+            },
+            {
+                id: 3,
+                name: 'Настольная лампа',
+                description: 'Говорят, что ее использовали в pixar',
+                price: 699,
+                category: 'Для дома',
+                imgUrl: '/lamp.png',
+            },
+            {
+                id: 4,
+                name: 'Принтер',
+                description: 'Незаменимая вещь для студента',
+                price: 7000,
+                category: 'Электроника',
+            },
+        ];
         const renderedProducts =
             rendered.baseElement.getElementsByClassName('product-card');
 
