@@ -27,3 +27,4 @@ dist-ssr
 test-report.html
 
 backend/src/.coverage
+backend/src/__pycache__
